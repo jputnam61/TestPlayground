@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base colors - Softer dark theme */
+  --background: 222 47% 4%;
+  --foreground: 210 40% 98%;
+  
+  /* Card and surfaces - Slightly lighter than background */
+  --card: 222 47% 7%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 7%;
+  --popover-foreground: 210 40% 98%;
+  
+  /* Primary - Cyan with better contrast */
+  --primary: 199 89% 72%;
+  --primary-foreground: 222 47% 4%;
+  
+  /* Secondary - Subtle purple */
+  --secondary: 250 35% 32%;
+  --secondary-foreground: 210 40% 98%;
+  
+  /* Muted - Neutral tones */
+  --muted: 217 25% 27%;
+  --muted-foreground: 215 25% 65%;
+  
+  /* Accent - Soft teal */
+  --accent: 168 75% 38%;
+  --accent-foreground: 210 40% 98%;
+  
+  /* Destructive - Warmer red */
+  --destructive: 0 84% 42%;
+  --destructive-foreground: 210 40% 98%;
+  
+  /* Borders and inputs */
+  --border: 217 25% 27%;
+  --input: 217 25% 27%;
+  --ring: 199 89% 72%;
+  
+  --radius: 0.75rem;
+}
+
+body {
+  background: linear-gradient(
+    to bottom,
+    hsl(222 47% 2%),
+    hsl(222 47% 4%)
+  );
+  min-height: 100vh;
+}
+
+.gradient-header {
+  background: linear-gradient(
+    135deg,
+    hsla(222, 47%, 11%, 0.95),
+    hsla(250, 35%, 15%, 0.95),
+    hsla(168, 75%, 12%, 0.95)
+  );
+  height: 120px;
+  border-radius: var(--radius);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px -8px hsl(var(--primary) / 0.1);
+}
+
+.gradient-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    hsl(199 89% 72% / 0.5),
+    hsl(250 35% 32% / 0.5),
+    hsl(168 75% 38% / 0.5)
+  );
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.page-header {
+  color: hsl(var(--foreground));
+  font-size: 2rem;
+  font-weight: 600;
+  text-shadow: 0 0 30px hsl(var(--primary) / 0.3);
+  z-index: 1;
+}
+
+/* Navigation Styles */
+.nav-section-header {
+  @apply flex items-center gap-2 px-3 py-2 text-sm font-semibold;
+  background: linear-gradient(
+    to right,
+    hsl(var(--secondary) / 0.1),
+    hsl(var(--secondary) / 0.05)
+  );
+  border: 1px solid hsl(var(--border) / 0.1);
+  border-radius: var(--radius);
+  color: hsl(var(--primary));
+  text-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  box-shadow: 
+    0 4px 12px -6px hsl(var(--secondary) / 0.3),
+    0 0 0 1px hsl(var(--border) / 0.1);
+}
+
+.nav-section-header svg {
+  @apply opacity-80;
+  filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.3));
+}
+
+.nav-link {
+  @apply flex items-center gap-x-2 p-2 rounded-lg transition-all duration-200 text-foreground/80;
+  position: relative;
+  overflow: visible;
+}
+
+.nav-link:hover {
+  @apply bg-secondary/20 text-foreground;
+  box-shadow: 0 0 12px -3px hsl(var(--primary) / 0.1);
+}
+
+.nav-link.active {
+  @apply bg-secondary/30 text-primary;
+  box-shadow: 
+    0 0 12px -3px hsl(var(--primary) / 0.3),
+    0 0 0 1px hsl(var(--border) / 0.2);
+}
+
+.nav-link.active svg {
+  @apply text-primary;
+  filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.3));
+}
+
+.glass-panel {
+  @apply bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/75;
+  box-shadow: 0 4px 24px -6px hsl(var(--primary) / 0.1);
+}
+
+.app-title {
+  @apply text-primary font-semibold text-lg;
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+}
+
+.page-title {
+  @apply text-primary/90 font-semibold text-xl;
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+}
+
+/* Navigation tooltips */
+.nav-link .tooltip {
+  @apply invisible opacity-0 absolute left-full ml-2 px-2 py-1 text-xs 
+    bg-popover text-popover-foreground rounded-md transition-all duration-200;
+  transform: translateY(-50%) translateX(0);
+  top: 50%;
+  white-space: nowrap;
+  box-shadow: 
+    0 4px 12px -2px hsl(var(--background) / 0.5),
+    0 0 0 1px hsl(var(--border) / 0.1);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.nav-link:hover .tooltip {
+  @apply visible opacity-100;
+  transform: translateY(-50%) translateX(4px);
+}
